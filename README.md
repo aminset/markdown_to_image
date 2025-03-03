@@ -84,7 +84,7 @@ python md_to_image.py documentation.md -t dark -w 1000
 
 Converting a Persian/Arabic document:
 ```bash
-python md_to_image.py persian_doc.md -d rtl -f vazirmatn
+python md_to_image.py persian_doc.md -d rtl -f jetbrainsmononerd
 ```
 
 Converting technical documentation with code:
