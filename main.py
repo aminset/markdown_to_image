@@ -1,19 +1,3 @@
-"""
-Markdown to Image Converter with RTL/LTR Support
-
-This script converts Markdown files to images with proper rendering of
-formatting elements like bold text, code blocks, etc. It supports both
-RTL (Right-to-Left) and LTR (Left-to-Right) text directions.
-
-Dependencies:
-- markdown: pip install markdown
-- playwright: pip install playwright
-  Then run: python -m playwright install chromium
-
-Usage:
-  python md_to_image.py input.md -o output.png -w 800 -t light
-"""
-
 import os
 import argparse
 import markdown
@@ -24,20 +8,6 @@ import pygments
 from pygments.formatters import HtmlFormatter
 
 def markdown_to_image(md_path, output_path=None, width=800, theme="light", direction="auto", font="default"):
-    """
-    Convert a Markdown file to an image
-    
-    Args:
-        md_path (str): Path to the markdown file
-        output_path (str, optional): Path to save the image. If None, uses the markdown filename with .png extension
-        width (int, optional): Width of the output image in pixels
-        theme (str, optional): "light" or "dark" theme
-        direction (str, optional): "auto", "rtl", or "ltr" text direction
-        font (str, optional): Font family to use ("default", "vazirmatn", "roboto", etc.)
-    
-    Returns:
-        str: Path to the saved image
-    """
     # Set default output path if not provided
     if output_path is None:
         output_path = os.path.splitext(md_path)[0] + ".png"
