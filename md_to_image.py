@@ -7,7 +7,7 @@ from playwright.sync_api import sync_playwright
 import pygments
 from pygments.formatters import HtmlFormatter
 
-def markdown_to_image(md_path, output_path=None, width=800, theme="light", direction="auto", font="default"):
+def markdown_to_image(md_path, output_path=None, width=800, theme="dark", direction="auto", font="default"):
     # Set default output path if not provided
     if output_path is None:
         output_path = os.path.splitext(md_path)[0] + ".png"
@@ -291,7 +291,7 @@ def main():
     parser.add_argument("input_file", help="Path to input Markdown file")
     parser.add_argument("-o", "--output", help="Path to output image file")
     parser.add_argument("-w", "--width", type=int, default=800, help="Width of the output image in pixels")
-    parser.add_argument("-t", "--theme", choices=["light", "dark"], default="light", help="Theme for rendering")
+    parser.add_argument("-t", "--theme", choices=["light", "dark"], default="dark", help="Theme for rendering")
     parser.add_argument("-d", "--direction", choices=["auto", "rtl", "ltr"], default="auto", 
                        help="Text direction (default: auto-detect)")
     parser.add_argument("-f", "--font", default="default", 

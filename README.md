@@ -53,7 +53,7 @@ python md_to_image.py input.md -o output.png -w 800 -t dark -d rtl -f vazirmatn
 | `input_file` | Path to input Markdown file |
 | `-o, --output` | Path to output image file (default: same as input with .png extension) |
 | `-w, --width` | Width of the output image in pixels (default: 800) |
-| `-t, --theme` | Theme for rendering: "light" or "dark" (default: light) |
+| `-t, --theme` | Theme for rendering: "light" or "dark" (default: dark) |
 | `-d, --direction` | Text direction: "auto", "rtl", or "ltr" (default: auto) |
 | `-f, --font` | Font family to use (see Font Options below) |
 
