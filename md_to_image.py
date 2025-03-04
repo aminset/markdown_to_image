@@ -1,11 +1,34 @@
 import os
+import re
 import argparse
 import markdown
 import tempfile
 from pathlib import Path
 from playwright.sync_api import sync_playwright
-import pygments
 from pygments.formatters import HtmlFormatter
+
+def preprocess_code_blocks(md_content):
+    """
+    Pre-process markdown content to ensure code blocks are properly formatted
+    regardless of indentation or other formatting issues.
+    """
+    # Pattern to find code blocks with any indentation
+    pattern = r'^(\s*)```(\w+)?$(.+?)^\s*```$'
+    
+    # Function to properly format matched code blocks
+    def replace_code_block(match):
+        indent = match.group(1)
+        lang = match.group(2) or ''
+        code = match.group(3)
+        # Remove extra indentation from code lines
+        code_lines = code.split('\n')
+        if indent and all(not line.strip() or line.startswith(indent) for line in code_lines if line.strip()):
+            code = '\n'.join(line[len(indent):] if line.strip() else line for line in code_lines)
+        return f"\n```{lang}\n{code}\n```\n"
+    
+    # Apply the replacements with re.MULTILINE and re.DOTALL flags
+    processed_content = re.sub(pattern, replace_code_block, md_content, flags=re.MULTILINE | re.DOTALL)
+    return processed_content
 
 def markdown_to_image(md_path, output_path=None, width=800, theme="dark", direction="auto", font="default"):
     # Set default output path if not provided
@@ -16,6 +39,9 @@ def markdown_to_image(md_path, output_path=None, width=800, theme="dark", direct
     with open(md_path, 'r', encoding='utf-8') as f:
         md_content = f.read()
     
+    # Pre-process code blocks
+    md_content = preprocess_code_blocks(md_content)
+     
     # Determine which pygments style to use based on theme
     pygments_style = 'monokai' if theme == 'dark' else 'default'
     
